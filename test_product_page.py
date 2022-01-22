@@ -1,3 +1,4 @@
+from final_task_of_stepic_course.pages.locators import BasePageLocators
 from .pages.product_page import ProductPage
 import pytest
 
@@ -46,3 +47,12 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.open()
     page.add_product_to_basket()
     page.should_be_disappeared()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_basket()
+    page.is_not_element_present(*BasePageLocators.BASKET_ITEMS)
+    page.is_element_present(*BasePageLocators.EMPTY_BASKET_MESSAGE)
