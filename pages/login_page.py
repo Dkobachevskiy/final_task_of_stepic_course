@@ -1,4 +1,3 @@
-from tkinter.tix import MAIN
 from .base_page import BasePage
 from .locators import LoginPageLocators
 
