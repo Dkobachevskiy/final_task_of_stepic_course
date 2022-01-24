@@ -9,6 +9,37 @@ from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 
 
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.page = LoginPage(browser, LoginPageLocators.LOGIN_PAGE_URL)
+        self.page.open()
+        email = (
+            generate_random_string(10) + str(datetime.now().microsecond)
+            + '@email.com'
+        )
+        password = generate_random_string(9)
+        self.page.register_new_user(email, password)
+        self.page.should_be_authorized_user()
+    
+    @pytest.mark.need_review
+    def test_user_can_add_product_to_basket(self, browser):
+        link = ProductPageLocators.PRODUCT_LINK_PROMO
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        page.solve_quiz_and_get_code()
+        page.should_be_add_basket_message()
+        page.should_be_alerts_with_product_name()
+        page.should_be_correct_price()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = ProductPageLocators.PRODUCT_LINK
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+
 @pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser):
     link = ProductPageLocators.PRODUCT_LINK
@@ -70,34 +101,3 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.open()
     page.add_product_to_basket()
     page.should_be_disappeared()
-
-
-class TestUserAddToBasketFromProductPage():
-    @pytest.fixture(scope="function", autouse=True)
-    def setup(self, browser):
-        self.page = LoginPage(browser, LoginPageLocators.LOGIN_PAGE_URL)
-        self.page.open()
-        email = (
-            generate_random_string(10) + str(datetime.now().microsecond)
-            + '@email.com'
-        )
-        password = generate_random_string(9)
-        self.page.register_new_user(email, password)
-        self.page.should_be_authorized_user()
-    
-    @pytest.mark.need_review
-    def test_user_can_add_product_to_basket(self, browser):
-        link = ProductPageLocators.PRODUCT_LINK_PROMO
-        page = ProductPage(browser, link)
-        page.open()
-        page.add_product_to_basket()
-        page.solve_quiz_and_get_code()
-        page.should_be_add_basket_message()
-        page.should_be_alerts_with_product_name()
-        page.should_be_correct_price()
-
-    def test_user_cant_see_success_message(self, browser):
-        link = ProductPageLocators.PRODUCT_LINK
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_not_be_success_message()
