@@ -2,9 +2,9 @@ from datetime import datetime
 
 import pytest
 
+from .pages.basket_page import BasketPage
 from .pages.generator import generate_random_string
-from .pages.locators import (BasketPageLocators, LoginPageLocators,
-                             ProductPageLocators)
+from .pages.locators import LoginPageLocators, ProductPageLocators
 from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 
@@ -58,8 +58,9 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_basket()
-    page.is_not_element_present(*BasketPageLocators.BASKET_ITEMS)
-    page.is_element_present(*BasketPageLocators.EMPTY_BASKET_MESSAGE)
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_be_basket_have_empty_message()
+    basket_page.should_be_empty_basket()
 
 
 def test_guest_should_see_login_link_on_product_page(browser):
