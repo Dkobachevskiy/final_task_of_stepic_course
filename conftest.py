@@ -25,8 +25,8 @@ def browser(request):
         browser.implicitly_wait(5)
     else:
         raise pytest.UsageError(
-            "please choose --language from list: ar, ca, cs, da, de, en-gb, "\
-            "el, es, fi, fr, it, ko, nl, pl, pt, pt-br, ro, ru, sk, uk, zh-hans"
+            "please choose --language from list: ar, ca, cs, da, de, en-gb,"
+            " el, es, fi, fr, it, ko, nl, pl, pt, pt-br, ro, ru, sk, uk"
         )
     print("\nstart chrome browser for test..")
     yield browser

@@ -6,9 +6,16 @@ class MainPageLocators():
 
 
 class LoginPageLocators():
+    LOGIN_PAGE_URL = "https://selenium1py.pythonanywhere.com/accounts/login/"
     LOGIN_URL = "login"
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     REGISTER_FORM = (By.CSS_SELECTOR, "#register_form")
+    REGISTER_VALUE_EMAIL = (By.CSS_SELECTOR, "#id_registration-email")
+    REGISTER_VALUE_PASSWORD = (By.CSS_SELECTOR, "#id_registration-password1")
+    REGISTER_VALUE_PASSWORD_CONFIRM = (
+        By.CSS_SELECTOR, "#id_registration-password2"
+    )
+    REGISTER_BUTTON = (By.CSS_SELECTOR, "[name='registration_submit']")
 
 
 class ProductPageLocators():
@@ -25,3 +32,4 @@ class BasePageLocators():
     BASKET_BUTTON = (By.PARTIAL_LINK_TEXT, "basket")
     BASKET_ITEMS = (By.CSS_SELECTOR, ".basket-items")
     EMPTY_BASKET_MESSAGE = (By.CSS_SELECTOR, "div#content_inner>p>a")
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
