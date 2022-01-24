@@ -25,8 +25,8 @@ class TestLoginFromMainPage():
         page = BasketPage(browser, link)
         page.open()
         page.go_to_basket()
-        page.basket_is_empty()
-        page.basket_have_empty_message()
+        page.should_be_empty_basket()
+        page.should_be_basket_have_empty_message()
 
     def test_guest_should_be_login_link(self, browser):
         link = MainPageLocators.MAIN_PAGE_LINK
