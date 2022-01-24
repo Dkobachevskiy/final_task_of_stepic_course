@@ -3,7 +3,7 @@ from .locators import BasketPageLocators
 
 
 class BasketPage(BasePage):
-    def basket_is_empty(self):
+    def should_be_empty_basket(self):
         assert self.is_not_element_present(*BasketPageLocators.BASKET_ITEMS),\
             "Basket is not empty, but it should be"
 
@@ -11,7 +11,7 @@ class BasketPage(BasePage):
         assert self.is_element_present(*BasketPageLocators.BASKET_ITEMS),\
             "Basket is empty, but it should not"
 
-    def basket_have_empty_message(self):
+    def should_be_basket_have_empty_message(self):
         assert self.is_element_present(
             *BasketPageLocators.EMPTY_BASKET_MESSAGE
         ), "text empty basket is missing, but it should be"
