@@ -24,12 +24,17 @@ class ProductPageLocators():
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alertinner>strong")
     PRODUCT_PRICE = (By.CSS_SELECTOR, ".product_main>.price_color")
     MESSAGE_WITH_BASKET_COST = (By.CSS_SELECTOR, "div.alertinner>p>strong")
+    PRODUCT_LINK = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
+    PRODUCT_LINK_PROMO = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
 
 
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     BASKET_BUTTON = (By.PARTIAL_LINK_TEXT, "basket")
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+
+
+class BasketPageLocators():
     BASKET_ITEMS = (By.CSS_SELECTOR, ".basket-items")
     EMPTY_BASKET_MESSAGE = (By.CSS_SELECTOR, "div#content_inner>p>a")
-    USER_ICON = (By.CSS_SELECTOR, ".icon-user")

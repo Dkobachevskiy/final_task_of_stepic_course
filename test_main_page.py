@@ -1,7 +1,7 @@
 import pytest
 
-from final_task_of_stepic_course.pages.locators import (BasePageLocators,
-                                                        MainPageLocators)
+from final_task_of_stepic_course.pages.basket_page import BasketPage
+from final_task_of_stepic_course.pages.locators import MainPageLocators
 
 from .pages.login_page import LoginPage
 from .pages.main_page import MainPage
@@ -22,11 +22,11 @@ class TestLoginFromMainPage():
             self,
             browser):
         link = MainPageLocators.MAIN_PAGE_LINK
-        page = MainPage(browser, link)
+        page = BasketPage(browser, link)
         page.open()
         page.go_to_basket()
-        page.is_not_element_present(*BasePageLocators.BASKET_ITEMS)
-        page.is_element_present(*BasePageLocators.EMPTY_BASKET_MESSAGE)
+        page.basket_is_empty()
+        page.basket_have_empty_message()
 
     def test_guest_should_be_login_link(self, browser):
         link = MainPageLocators.MAIN_PAGE_LINK
