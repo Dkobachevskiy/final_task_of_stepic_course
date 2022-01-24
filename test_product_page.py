@@ -9,6 +9,7 @@ from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 
 
+@pytest.mark.need_review
 @pytest.mark.parametrize('link',
                          ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                           "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -31,13 +32,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.should_be_correct_price()
 
 
-def test_guest_cant_see_success_message(browser):
-    link = ProductPageLocators.PRODUCT_LINK
-    page = ProductPage(browser, link)
-    page.open()
-    page.should_not_be_success_message()
-
-
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = ProductPageLocators.PRODUCT_LINK
     page = ProductPage(browser, link)
@@ -45,6 +40,28 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page.go_to_basket()
     page.is_not_element_present(*BasketPageLocators.BASKET_ITEMS)
     page.is_element_present(*BasketPageLocators.EMPTY_BASKET_MESSAGE)
+
+
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = ProductPageLocators.PRODUCT_LINK
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+
+
+@pytest.mark.need_review
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = ProductPageLocators.PRODUCT_LINK
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+
+
+def test_guest_cant_see_success_message(browser):
+    link = ProductPageLocators.PRODUCT_LINK
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_not_be_success_message()
 
 
 @pytest.mark.xfail
@@ -78,13 +95,8 @@ class TestUserAddToBasketFromProductPage():
         password = generate_random_string(9)
         self.page.register_new_user(email, password)
         self.page.should_be_authorized_user()
-
-    def test_user_cant_see_success_message(self, browser):
-        link = ProductPageLocators.PRODUCT_LINK
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_not_be_success_message()
-
+    
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = ProductPageLocators.PRODUCT_LINK_PROMO
         page = ProductPage(browser, link)
@@ -94,3 +106,9 @@ class TestUserAddToBasketFromProductPage():
         page.should_be_add_basket_message()
         page.should_be_alerts_with_product_name()
         page.should_be_correct_price()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = ProductPageLocators.PRODUCT_LINK
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
